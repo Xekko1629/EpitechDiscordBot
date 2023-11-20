@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  epitechbot:
+    build: .
+    env_file:
+      - .env
+    container_name: epitechbot
+    tty: true
+    stdin_open: true
+    restart: "always"
