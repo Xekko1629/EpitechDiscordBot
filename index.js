@@ -113,25 +113,23 @@ client.on('ready', async () => {
 });
 
 client.on(Events.MessageReactionAdd, async (reaction, user) => {
-	if (reaction.partial) {
-		try {
-			await reaction.fetch();
-            for (let key in config["channel"]) {
-                if (reaction.message.id == config["channel"][key].id) {
-                    for (let i in config["channel"][key].emotes) {
-                        if (reaction.emoji.name == config["channel"][key].emotes[i].emote) {
-                            let realUser = await reaction.message.guild.members.fetch(user.id);
-                            realUser.roles.add(config["channel"][key].emotes[i].roleID);
-                            let role = await reaction.message.guild.roles.fetch(config["channel"][key].emotes[i].roleID);
-                            realUser.send(`Ajout du rôle ${role.name} avec succès !`);
-                        }
+	try {
+		await reaction.fetch();
+        for (let key in config["channel"]) {
+            if (reaction.message.id == config["channel"][key].id) {
+                for (let i in config["channel"][key].emotes) {
+                    if (reaction.emoji.name == config["channel"][key].emotes[i].emote) {
+                        let realUser = await reaction.message.guild.members.fetch(user.id);
+                        realUser.roles.add(config["channel"][key].emotes[i].roleID);
+                        let role = await reaction.message.guild.roles.fetch(config["channel"][key].emotes[i].roleID);
+                        realUser.send(`Ajout du rôle ${role.name} avec succès !`);
                     }
                 }
             }
-		} catch (error) {
-			console.error('Something went wrong when fetching the message:', error);
-			return;
-		}
+        }
+	} catch (error) {
+		console.error('Something went wrong when fetching the message:', error);
+		return;
 	}
 });
 
