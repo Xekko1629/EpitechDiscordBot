@@ -88,7 +88,7 @@ const client = new Client({
 	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 
-client.login("MTE3NjE3Nzg1MzQxOTc0OTM3Ng.G0ePpY.ujAzrlRv4swj-YqJZZfsDiV6uG5TBNQQtqEiDM");
+client.login(process.env.TOKEN);
 
 let commands = [
     ping,
